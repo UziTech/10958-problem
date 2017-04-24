@@ -46,7 +46,7 @@ I used brute force starting from `1_2_3_4_5_6_7_8_9` or `[0, 0, 0, 0, 0, 0, 0, 0
 
 I removed 1 parenthesis from each side of each number from the final combination because we are not considering `(1)_2...` a valid combination.
 
-You can check out the code at [step2/index.js](./step2/index.js)
+You can check out the code at [step2/step2.js](./step2/step2.js)
 
 This code took about 3 hours to run on my computer so I decided to save the results along with the state in a file occasionally so I could catch errors easier and restart at the last state if something went wrong.
 
