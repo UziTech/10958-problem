@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const ops = ["+", "-", "*", "/", "^", "|"];
+const ops = ["+", "'", "*", "/", "^", "|"];
 console.time("readfile");
 const possibilities = fs.readFileSync("../step2/possibilities.txt", { encoding: "utf8" }).split("\n");
 console.timeEnd("readfile");
@@ -11,8 +11,78 @@ let numbers = [];
 
 let operations = [0, 0, 0, 0, 0, 0, 0, 0];
 
-function evaluate() {
-	// TODO:
+const parenRegex = /\(([^()]+)\)/;
+const concatRegex = /([-\d.]+)\|([-\d.]+)/;
+const potentRegex = /([-\d.]+)\^([-\d.]+)/;
+const multiplyDivideRegex = /([-\d.]+)(\*|\/)([-\d.]+)/;
+const addSubtractRegex = /([-\d.]+)(\+|')([-\d.]+)/;
+// const numRegex = /^[\d.]+$/;
+
+function evaluate(expression) {
+	let match = null;
+	let num;
+	do {
+		// evaluate parentheses
+		match = expression.match(parenRegex);
+		if (match) {
+			num = evaluate(match[1]);
+			expression = expression.replace(match[0], num);
+		}
+	} while (match);
+
+	do {
+		// evaluate concatination
+		match = expression.match(concatRegex);
+		if (match) {
+			num = "" + match[1] + match[2];
+			expression = expression.replace(match[0], num);
+		}
+	} while (match);
+
+	do {
+		// evaluate potentiation
+		match = expression.match(potentRegex);
+		if (match) {
+			num = Math.pow(+match[1], +match[2]);
+			expression = expression.replace(match[0], num);
+		}
+	} while (match);
+
+	do {
+		// evaluate multiplication and division
+		match = expression.match(multiplyDivideRegex);
+		if (match) {
+			if (match[2] === "*") {
+				num = +match[1] * +match[3];
+			} else {
+				num = +match[1] / +match[3];
+			}
+			expression = expression.replace(match[0], num);
+		}
+	} while (match);
+
+	do {
+		// evaluate addition and subtraction
+		match = expression.match(addSubtractRegex);
+		if (match) {
+			if (match[2] === "+") {
+				num = +match[1] + +match[3];
+			} else {
+				num = +match[1] - +match[3];
+			}
+			expression = expression.replace(match[0], num);
+		}
+	} while (match);
+
+	return expression;
+}
+
+function toString(combination, operations) {
+	for (let i = operations.length - 1; i >= 0; i--) {
+		combination = combination.replace("_", ops[operations[i]]);
+	}
+
+	return combination;
 }
 
 function incrementOne(operations) {
@@ -34,21 +104,21 @@ function start() {
 	const combination = possibilities[line];
 	console.time(combination);
 	let num;
+	let expression;
 	do {
-		num = evaluate(combination);
-		if (num) {
-			numbers.push(num + " = " + combination);
+		expression = toString(combination, operations);
+		num = evaluate(expression);
+		numbers.push(expression + " = " + num);
 	}
-}
-while (incrementOne(operations));
+	while (incrementOne(operations));
 
-console.timeEnd(combination);
-if (numbers.length > 0) {
-	fs.appendFile("numbers.txt", "\n" + numbers.join("\n"));
-}
+	console.timeEnd(combination);
+	if (numbers.length > 0) {
+		fs.appendFile("numbers.txt", "\n" + numbers.join("\n"));
+	}
 
-if (++line < total) {
-	//setTimeout(start, 0);
-}
+	if (++line < total) {
+		//setTimeout(start, 0);
+	}
 }
 start();
