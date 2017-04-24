@@ -16,7 +16,7 @@ const concatRegex = /([-\d.]+)\|([-\d.]+)/;
 const potentRegex = /([-\d.]+)\^([-\d.]+)/;
 const multiplyDivideRegex = /([-\d.]+)(\*|\/)([-\d.]+)/;
 const addSubtractRegex = /([-\d.]+)(\+|')([-\d.]+)/;
-// const numRegex = /^[\d.]+$/;
+// const numRegex = /^[-\d.]+$/;
 
 function evaluate(expression) {
 	let match = null;
@@ -108,17 +108,23 @@ function start() {
 	do {
 		expression = toString(combination, operations);
 		num = evaluate(expression);
-		numbers.push(expression + " = " + num);
+		if (!/\D/.test(num)) {
+			numbers.push(expression + " = " + num);
+			if (+num === 10958) {
+				console.log(expression + " = " + num);
+			}
+		}
 	}
 	while (incrementOne(operations));
 
 	console.timeEnd(combination);
 	if (numbers.length > 0) {
 		fs.appendFile("numbers.txt", "\n" + numbers.join("\n"));
+		numbers = [];
 	}
 
 	if (++line < total) {
-		//setTimeout(start, 0);
+		setTimeout(start, 0);
 	}
 }
 start();
