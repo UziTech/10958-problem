@@ -1,7 +1,11 @@
 # Overview
 
 Create a program that programmatically calculates all solutions to `1_2_3_4_5_6_7_8_9` where `_` can be one of the mathematical operations
-`+`,`-`,`*`,`/`,`^`,`||`. (`||` is concatenation i.e. 1||2 === 12) In addition to the mathematical operations, parentheses can be used.
+`+`,`-`,`*`,`/`,`^`,`||`.
+
+(`||` is [concatenation](https://en.wikipedia.org/wiki/Concatenation_%28mathematics%29#Calculation) (i.e. 1||2 === 12) however to keep all operations a single character for simplicity I will be using `|`)
+
+In addition to the mathematical operations, parentheses can be used.
 
 You can watch [this Numberphile video](https://www.youtube.com/watch?v=-ruC5A9EzzE) for more details.
 
@@ -61,10 +65,10 @@ catch errors easier and restart at the last state if something went wrong.
 (I initially wrote this code in PHP since I had an easy way to script and run code in PHP, but it would have taken 10 seconds to run 1,000,000
 iterations where the same amount took 64 milliseconds in node.)
 
-You can see the final result in [step2/possibilities.txt](./step2/possibilities.txt) (~130MB)
+You can see the final result in [step2/possibilities.txt](./step2/possibilities.txt)
 
 ## Step 3. Evaluate the combinations
 
 Now that I have all valid combinations I can start plugging in the operations and evaluating the expressions.
 
-To evaluate the expressions I will need to take a string (i.e. `(1*2-3)+4||((5/6)*7^8)-9`) and evaluate it.
+To evaluate the expressions I will need to take a string (i.e. `(1*2-3)+4||((5/6)*7^8)-9`) and create an AST to evaluate it.
