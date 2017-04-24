@@ -59,11 +59,11 @@ I removed 1 parenthesis from each side of each number from the final combination
 
 You can check out the code at [step2/step2.js](./step2/step2.js)
 
-This code took about 3 hours to run on my computer so I decided to save the results along with the state in a file occasionally so I could
+This code took about 8 hours to run on my computer so I decided to save the results along with the state in a file occasionally so I could
 catch errors easier and restart at the last state if something went wrong.
 
 (I initially wrote this code in PHP since I had an easy way to script and run code in PHP, but it would have taken 10 seconds to run 1,000,000
-iterations where the same amount took 64 milliseconds in node.)
+iterations where the same amount took 182 milliseconds in node.)
 
 You can see the final result in [step2/possibilities.txt](./step2/possibilities.txt)
 
