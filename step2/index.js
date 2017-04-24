@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-// const ops = ["+", "-", "*", "/", "^", "."];
+// const ops = ["+", "-", "*", "/", "^", "||"];
 // ((((((((1 (((((((2) ((((((3)) (((((4))) ((((5)))) (((6))))) ((7)))))) (8))))))) 9))))))))
 const possibleParens = [8, 0, 7, 1, 6, 2, 5, 3, 4, 4, 3, 5, 2, 6, 1, 7, 0, 8];
 let graph = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -89,9 +89,9 @@ function start() {
 
 	console.timeEnd(timer);
 	if (possibilities.length > 0) {
-		fs.appendFile('possibilities.txt', "\n" + possibilities.join("\n"));
+		fs.appendFile("possibilities.txt", "\n" + possibilities.join("\n"));
 	}
-	fs.appendFile('graph.json', "\n[" + graph.toString() + "]");
+	fs.appendFile("graph.json", "\n[" + graph.toString() + "]");
 	if (notDone) {
 		setTimeout(start, 0);
 	}
