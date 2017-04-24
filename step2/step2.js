@@ -99,7 +99,7 @@ function start() {
 
 	console.timeEnd(timer);
 	if (possibilities.length > 0) {
-		fs.appendFile("possibilities.txt", "\n" + possibilities.join("\n"));
+		fs.appendFileSync("possibilities.txt", "\n" + possibilities.join("\n"));
 		possibilities = [];
 	}
 	fs.writeFileSync("graph.json", "[" + graph.toString() + "]");

@@ -77,7 +77,7 @@ function evaluate(expression) {
 	return expression;
 }
 
-function toString(combination, operations) {
+function toString(combination) {
 	for (let i = operations.length - 1; i >= 0; i--) {
 		combination = combination.replace("_", ops[operations[i]]);
 	}
@@ -85,11 +85,12 @@ function toString(combination, operations) {
 	return combination;
 }
 
-function incrementOne(operations) {
+function incrementOne() {
 	for (let i = operations.length - 1; i >= 0; i--) {
 		operations[i]++;
 		if (operations[i] > 5) {
 			if (i === 0) {
+				operations.fill(0);
 				return false;
 			}
 			operations[i] = 0;
@@ -106,7 +107,7 @@ function start() {
 	let num;
 	let expression;
 	do {
-		expression = toString(combination, operations);
+		expression = toString(combination);
 		num = evaluate(expression);
 		if (!/\D/.test(num)) {
 			numbers.push(expression + " = " + num);
@@ -115,11 +116,11 @@ function start() {
 			}
 		}
 	}
-	while (incrementOne(operations));
-
+	while (incrementOne());
 	console.timeEnd(combination);
 	if (numbers.length > 0) {
-		fs.appendFile("numbers.txt", "\n" + numbers.join("\n"));
+		fs.appendFileSync("./numbers.txt", "\n" + numbers.join("\n"));
+		console.log(numbers.length);
 		numbers = [];
 	}
 
