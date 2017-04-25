@@ -1,5 +1,7 @@
 const fs = require("fs");
 
+// # is plus and ~ is minus
+// we can't use + and - in the string because of scientific notation
 const ops = ["#", "~", "*", "/", "^", "||"];
 console.time("readfile");
 const possibilities = fs.readFileSync("../step2/possibilities.txt", { encoding: "utf8" }).split("\n");
