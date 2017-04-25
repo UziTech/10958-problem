@@ -83,5 +83,5 @@ You can check out the code at [step3/step3.js](./step3/step3.js)
 
 A couple notes:
 
--  Since we are doing [floating-point arithmetic](https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html) there will be some approximations that could end up wrong. So if any part of the expression evaluates to Infinity or -Infinity we just throw it out.
--  Because JavaScript sometimes uses scientific notation (i.e. `5.123456e+7`) we can not use `+` or `-` in our string so in the code I substitute them with `#` and `~` when evaluating.
+-   Since we are doing [floating-point arithmetic](https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html) there will be some approximations that could end up wrong. So if any part of the expression evaluates to Infinity or -Infinity we just throw it out.
+-   Because JavaScript sometimes uses scientific notation (i.e. `5.123456e+7`) we can not use `+` or `-` in our string so in the code I substitute them with `#` and `~` when evaluating.
