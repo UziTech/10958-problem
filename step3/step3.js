@@ -7,6 +7,11 @@ console.timeEnd("readfile");
 
 let total = possibilities.length;
 let line = 0;
+
+try {
+	line = +fs.readFileSync("./line.json", { encoding: "utf8" });
+} catch (ex) {}
+
 let numbers = [];
 
 let operations = [0, 0, 0, 0, 0, 0, 0, 0];
@@ -26,6 +31,9 @@ function evaluate(expression) {
 		match = expression.match(parenRegex);
 		if (match) {
 			num = evaluate(match[1]);
+			if (isNaN(num) || num === Infinity || num === -Infinity) {
+				return NaN;
+			}
 			expression = expression.replace(match[0], num);
 		}
 	} while (match);
@@ -35,6 +43,9 @@ function evaluate(expression) {
 		match = expression.match(concatRegex);
 		if (match) {
 			num = "" + match[1] + match[2];
+			if (isNaN(num) || num === Infinity || num === -Infinity) {
+				return NaN;
+			}
 			expression = expression.replace(match[0], num);
 		}
 	} while (match);
@@ -44,6 +55,9 @@ function evaluate(expression) {
 		match = expression.match(potentRegex);
 		if (match) {
 			num = Math.pow(+match[1], +match[2]);
+			if (isNaN(num) || num === Infinity || num === -Infinity) {
+				return NaN;
+			}
 			expression = expression.replace(match[0], num);
 		}
 	} while (match);
@@ -57,6 +71,9 @@ function evaluate(expression) {
 			} else {
 				num = +match[1] / +match[3];
 			}
+			if (isNaN(num) || num === Infinity || num === -Infinity) {
+				return NaN;
+			}
 			expression = expression.replace(match[0], num);
 		}
 	} while (match);
@@ -69,6 +86,9 @@ function evaluate(expression) {
 				num = +match[1] + +match[3];
 			} else {
 				num = +match[1] - +match[3];
+			}
+			if (isNaN(num) || num === Infinity || num === -Infinity) {
+				return NaN;
 			}
 			expression = expression.replace(match[0], num);
 		}
@@ -109,7 +129,7 @@ function start() {
 	do {
 		expression = toString(combination);
 		num = evaluate(expression);
-		if (!/\D/.test(num)) {
+		if (!isNaN(num)) {
 			numbers.push(expression + " = " + num);
 			if (+num === 10958) {
 				console.log(expression + " = " + num);
@@ -120,11 +140,13 @@ function start() {
 	console.timeEnd(combination);
 	if (numbers.length > 0) {
 		fs.appendFileSync("./numbers.txt", "\n" + numbers.join("\n"));
-		console.log(numbers.length);
 		numbers = [];
 	}
+	line++;
 
-	if (++line < total) {
+	fs.writeFileSync("./line.txt", line);
+
+	if (line < total) {
 		setTimeout(start, 0);
 	}
 }
