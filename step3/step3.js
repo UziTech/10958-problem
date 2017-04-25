@@ -34,7 +34,7 @@ function evaluate(expression) {
 		match = expression.match(parenRegex);
 		if (match) {
 			num = evaluate(match[1]);
-			// If num in Infinity or -Infinity we just throw it out.
+			// If num is Infinity or -Infinity we just throw it out.
 			if (isNaN(num) || num === Infinity || num === -Infinity) {
 				return NaN;
 			}
