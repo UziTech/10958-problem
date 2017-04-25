@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const ops = ["+", "'", "*", "/", "^", "|"];
+const ops = ["+", "'", "*", "/", "^", "||"];
 console.time("readfile");
 const possibilities = fs.readFileSync("../step2/possibilities.txt", { encoding: "utf8" }).split("\n");
 console.timeEnd("readfile");
@@ -17,7 +17,7 @@ let numbers = [];
 let operations = [0, 0, 0, 0, 0, 0, 0, 0];
 
 const parenRegex = /\(([^()]+)\)/;
-const concatRegex = /([-\d.]+)\|([-\d.]+)/;
+const concatRegex = /([-\d.]+)\|\|([-\d.]+)/;
 const potentRegex = /([-\d.]+)\^([-\d.]+)/;
 const multiplyDivideRegex = /([-\d.]+)(\*|\/)([-\d.]+)/;
 const addSubtractRegex = /([-\d.]+)(\+|')([-\d.]+)/;
@@ -130,6 +130,7 @@ function start() {
 		expression = toString(combination);
 		num = evaluate(expression);
 		if (!isNaN(num)) {
+			expression = expression.replace(/'/g, "-");
 			numbers.push(expression + " = " + num);
 			if (+num === 10958) {
 				console.log(expression + " = " + num);
