@@ -55,7 +55,7 @@ I used brute force starting from `1_2_3_4_5_6_7_8_9` or `[0, 0, 0, 0, 0, 0, 0, 0
 `((((((((1_(((((((2)_((((((3))_(((((4)))_((((5))))_(((6)))))_((7))))))_(8)))))))_9))))))))` or
 `[8, 0, 7, 1, 6, 2, 5, 3, 4, 4, 3, 5, 2, 6, 1, 7, 0, 8]`
 
-I removed 1 parenthesis from each side of each number from the final combination because we are not considering `(1)_2...` a valid combination.
+I removed one parenthesis from each side of each number from the final combination because we are not considering `(1)_2...` a valid combination.
 
 You can check out the code at [step2/step2.js](./step2/step2.js)
 
@@ -71,4 +71,12 @@ You can see the final result in [step2/possibilities.txt](./step2/possibilities.
 
 Now that I have all valid combinations I can start plugging in the operations and evaluating the expressions.
 
-To evaluate the expressions I will need to take a string (i.e. `(1*2-3)+4||((5/6)*7^8)-9`) and create an AST to evaluate it.
+To evaluate the expressions I will need to take a string (i.e. `(1*2-3)+4|((5/6)*7^8)-9`) and evaluate it in the following order of precedence:
+
+1.  Parentheses
+2.  Concatenation
+3.  Potentiation
+4.  Multiplication and Division
+5.  Addition and Subtraction
+
+You can check out the code at [step3/step3.js](./step3/step3.js)
