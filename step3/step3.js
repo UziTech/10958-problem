@@ -25,6 +25,7 @@ const multiplyDivideRegex = /([-\d.e+]+)(\*|\/)([-\d.e+]+)/;
 const addSubtractRegex = /([-\d.e+]+)(#|~)([-\d.e+]+)/;
 // const numRegex = /^[-\d.]+$/;
 
+// TODO: find a way to evaluate with less String to Number and Number to String conversion
 function evaluate(expression) {
 	let match = null;
 	let num;
@@ -33,6 +34,7 @@ function evaluate(expression) {
 		match = expression.match(parenRegex);
 		if (match) {
 			num = evaluate(match[1]);
+			// If num in Infinity or -Infinity we just throw it out.
 			if (isNaN(num) || num === Infinity || num === -Infinity) {
 				return NaN;
 			}
