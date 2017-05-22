@@ -20,7 +20,7 @@ This seems to be all possible combinations.
 There should never be a beginning parenthesis immediately before an operation. (i.e. `1(_2...` doesn't make sense) And same with ending
 parentheses immediately after an operation.
 
-Also the number of parentheses on each side of a number is the number of numbers that can have a matching parenthesis. (e.g. 3 could have 3
+Also the maximum number of parentheses on each side of a number is the number of numbers that can have a matching parenthesis. (e.g. 3 could have up to 3
 	ending parentheses immediately after it `(1_(2_(3)))...`)
 
 Brute forcing this would mean the parentheses could be on or off and `_` can be one of 6 operations
