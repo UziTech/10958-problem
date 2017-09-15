@@ -2,7 +2,7 @@ const fs = require("fs");
 
 // # is plus and ~ is minus
 // we can't use + and - in the string because of scientific notation
-const ops = ["#", "~", "*", "/", "^", "||"];
+const ops = ["#", "~", "*", "/", "^", "|"];
 console.time("readfile");
 const possibilities = fs.readFileSync("../step2/possibilities.txt", { encoding: "utf8" }).split("\n");
 console.timeEnd("readfile");
@@ -11,7 +11,7 @@ let total = possibilities.length;
 let line = 0;
 
 try {
-	line = +fs.readFileSync("./line.json", { encoding: "utf8" });
+	line = +fs.readFileSync("./line.txt", { encoding: "utf8" });
 } catch (ex) {}
 
 let numbers = [];
@@ -19,7 +19,7 @@ let numbers = [];
 let operations = [0, 0, 0, 0, 0, 0, 0, 0];
 
 const parenRegex = /\(([^()]+)\)/;
-const concatRegex = /([-\d.e+]+)\|\|([-\d.e+]+)/;
+const concatRegex = /([-\d.e+]+)\|([-\d.e+]+)/;
 const potentRegex = /([-\d.e+]+)\^([-\d.e+]+)/;
 const multiplyDivideRegex = /([-\d.e+]+)(\*|\/)([-\d.e+]+)/;
 const addSubtractRegex = /([-\d.e+]+)(#|~)([-\d.e+]+)/;
